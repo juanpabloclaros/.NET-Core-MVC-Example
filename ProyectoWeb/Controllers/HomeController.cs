@@ -36,7 +36,7 @@ namespace ProyectoWeb.Controllers
                 using (var command = conn.CreateCommand())
                 {
                     string query = "SELECT EnrollmentDate, COUNT(*) AS StudentCount "
-                        + "FROM Person "
+                        + "FROM [Person] "
                         + "WHERE Discriminator = 'Student' "
                         + "GROUP BY EnrollmentDate";
                     command.CommandText = query;
@@ -60,13 +60,6 @@ namespace ProyectoWeb.Controllers
             return View(groups);
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
         public IActionResult Privacy()
         {
             return View();
@@ -76,6 +69,11 @@ namespace ProyectoWeb.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
         }
     }
 }

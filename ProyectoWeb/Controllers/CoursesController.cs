@@ -22,8 +22,10 @@ namespace ProyectoWeb.Controllers
         // GET: Courses
         public async Task<IActionResult> Index()
         {
-            var schoolContext = _context.Courses.Include(c => c.Department);
-            return View(await schoolContext.ToListAsync());
+            var courses = _context.Courses
+                .Include(c => c.Department)
+                .AsNoTracking();
+            return View(await courses.ToListAsync());
         }
 
         // GET: Courses/Details/5
@@ -124,6 +126,7 @@ namespace ProyectoWeb.Controllers
             PopulateDepartmentsDropDownList(courseToUpdate.DepartmentID);
             return View(courseToUpdate);
         }
+
         private void PopulateDepartmentsDropDownList(object selectedDepartment = null)
         {
             var departmentsQuery = from d in _context.Departments
@@ -163,11 +166,6 @@ namespace ProyectoWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool CourseExists(int id)
-        {
-            return _context.Courses.Any(e => e.CourseID == id);
-        }
-
         public IActionResult UpdateCourseCredits()
         {
             return View();
@@ -184,6 +182,11 @@ namespace ProyectoWeb.Controllers
                         parameters: multiplier);
             }
             return View();
+        }
+
+        private bool CourseExists(int id)
+        {
+            return _context.Courses.Any(e => e.CourseID == id);
         }
     }
 }

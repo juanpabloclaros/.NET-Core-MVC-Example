@@ -22,6 +22,7 @@ namespace ProyectoWeb.Controllers
         // GET: Departments
         public async Task<IActionResult> Index()
         {
+
             var schoolContext = _context.Departments.Include(d => d.Administrator);
             return View(await schoolContext.ToListAsync());
         }
@@ -85,6 +86,7 @@ namespace ProyectoWeb.Controllers
                 .Include(i => i.Administrator)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.DepartmentID == id);
+
             if (department == null)
             {
                 return NotFound();
@@ -208,7 +210,6 @@ namespace ProyectoWeb.Controllers
 
             return View(department);
         }
-
         // POST: Departments/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]

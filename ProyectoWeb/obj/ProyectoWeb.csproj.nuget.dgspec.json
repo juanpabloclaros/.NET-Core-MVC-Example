@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jpclaros\\source\\repos\\ProyectoWeb\\ProyectoWeb\\ProyectoWeb.csproj": {}
+    "C:\\Users\\jpclaros\\source\\repos\\NetCoreProject\\ProyectoWeb\\ProyectoWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jpclaros\\source\\repos\\ProyectoWeb\\ProyectoWeb\\ProyectoWeb.csproj": {
+    "C:\\Users\\jpclaros\\source\\repos\\NetCoreProject\\ProyectoWeb\\ProyectoWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jpclaros\\source\\repos\\ProyectoWeb\\ProyectoWeb\\ProyectoWeb.csproj",
+        "projectUniqueName": "C:\\Users\\jpclaros\\source\\repos\\NetCoreProject\\ProyectoWeb\\ProyectoWeb.csproj",
         "projectName": "ProyectoWeb",
-        "projectPath": "C:\\Users\\jpclaros\\source\\repos\\ProyectoWeb\\ProyectoWeb\\ProyectoWeb.csproj",
+        "projectPath": "C:\\Users\\jpclaros\\source\\repos\\NetCoreProject\\ProyectoWeb\\ProyectoWeb.csproj",
         "packagesPath": "C:\\Users\\jpclaros\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jpclaros\\source\\repos\\ProyectoWeb\\ProyectoWeb\\obj\\",
+        "outputPath": "C:\\Users\\jpclaros\\source\\repos\\NetCoreProject\\ProyectoWeb\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\ProgramData\\Xamarin\\NuGet\\",
