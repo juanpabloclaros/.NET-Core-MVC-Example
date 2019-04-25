@@ -28,12 +28,7 @@ namespace ProyectoWeb.Controllers
                   .Include(i => i.OfficeAssignment)
                   .Include(i => i.CourseAssignments)
                     .ThenInclude(i => i.Course)
-                        .ThenInclude(i => i.Enrollments)
-                            .ThenInclude(i => i.Student)
-                  .Include(i => i.CourseAssignments)
-                    .ThenInclude(i => i.Course)
                         .ThenInclude(i => i.Department)
-                  .AsNoTracking()
                   .OrderBy(i => i.LastName)
                   .ToListAsync();
 
@@ -47,16 +42,14 @@ namespace ProyectoWeb.Controllers
 
             if (courseID != null)
             {
-                //ViewData["CourseID"] = courseID.Value;
-                //var selectedCourse = viewModel.Courses.Where(x => x.CourseID == courseID).Single();
-                //await _context.Entry(selectedCourse).Collection(x => x.Enrollments).LoadAsync();
-                //foreach (Enrollment enrollment in selectedCourse.Enrollments)
-                //{
-                //    await _context.Entry(enrollment).Reference(x => x.Student).LoadAsync();
-                //}
-                //viewModel.Enrollments = selectedCourse.Enrollments;
-                viewModel.Enrollments = viewModel.Courses.Where(
-                    x => x.CourseID == courseID).Single().Enrollments;
+                ViewData["CourseID"] = courseID.Value;
+                var selectedCourse = viewModel.Courses.Where(x => x.CourseID == courseID).Single();
+                await _context.Entry(selectedCourse).Collection(x => x.Enrollments).LoadAsync();
+                foreach (Enrollment enrollment in selectedCourse.Enrollments)
+                {
+                    await _context.Entry(enrollment).Reference(x => x.Student).LoadAsync();
+                }
+                viewModel.Enrollments = selectedCourse.Enrollments;
             }
 
             return View(viewModel);
@@ -154,6 +147,7 @@ namespace ProyectoWeb.Controllers
         // POST: Instructors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int? id, string[] selectedCourses)
@@ -196,7 +190,7 @@ namespace ProyectoWeb.Controllers
             PopulateAssignedCourseData(instructorToUpdate);
             return View(instructorToUpdate);
         }
-
+        
         private void UpdateInstructorCourses(string[] selectedCourses, Instructor instructorToUpdate)
         {
             if (selectedCourses == null)
@@ -262,6 +256,7 @@ namespace ProyectoWeb.Controllers
             departments.ForEach(d => d.InstructorID = null);
 
             _context.Instructors.Remove(instructor);
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

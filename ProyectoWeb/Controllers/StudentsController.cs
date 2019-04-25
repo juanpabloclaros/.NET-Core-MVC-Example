@@ -20,12 +20,12 @@ namespace ProyectoWeb.Controllers
         }
 
         // GET: Students
-        public async Task<IActionResult> Index(string sortOrder,string currentFilter,string searchString,int? pageNumber)
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-            // El codigo asincrono lo que hace es que cuando un proceso esta esperando a que se termine otro proceso o tarea, su hilo es liberado para que
-            // el servidor lo use para para procesar otras solicitudes. Esta opcion cuando hay poco tráfico, apenas se nota, pero cuando hay bastante tráfico,
-            // su uso se nota bastante más.
-            //return View(await _context.Students.ToListAsync());
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
@@ -43,13 +43,11 @@ namespace ProyectoWeb.Controllers
 
             var students = from s in _context.Students
                            select s;
-
             if (!String.IsNullOrEmpty(searchString))
             {
                 students = students.Where(s => s.LastName.Contains(searchString)
                                        || s.FirstMidName.Contains(searchString));
             }
-
             switch (sortOrder)
             {
                 case "name_desc":
@@ -78,15 +76,11 @@ namespace ProyectoWeb.Controllers
                 return NotFound();
             }
 
-            // Con Include y con ThenInclude lo que haces es que el contexto cargue la propiedad de navegacion Student.Enrollments, y por
-            // cada enrollment, la propiedad de navegacion Enrollment.Course.
-            // El métdodo AsNoTracking mejora el funcionamiento en escenarios donde las entidades retornadas no serán actualizadas en el
-            // tiempo de vida del contexto actual.
             var student = await _context.Students
-            .Include(s => s.Enrollments)
-                .ThenInclude(e => e.Course)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(m => m.ID == id);
+                 .Include(s => s.Enrollments)
+                     .ThenInclude(e => e.Course)
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (student == null)
             {
@@ -105,12 +99,10 @@ namespace ProyectoWeb.Controllers
         // POST: Students/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        // El atributo ValidateAntiForgeryToken ayuda a prevenir ataques de falsificación de solicitudes entre sitios.
-        // El token es automaticaente injectado en la vista por el FormTagHelper y es incluido cuando el form es enviado
-        // por le usuario. Luego, el token es validado por el atributo ValidateAntiForgeryToken.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EnrollmentDate,FirstMidName,LastName")] Student student)
+        public async Task<IActionResult> Create(
+            [Bind("EnrollmentDate,FirstMidName,LastName")] Student student)
         {
             try
             {
@@ -121,8 +113,6 @@ namespace ProyectoWeb.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-            // Este catch se lanzará si ocurre un error, normalemente, externo a la app. Rara vez salta cuando el fallo
-            // del codigo. Asi que, si salta un error, le saltara un mensaje al usuario informando de cual es.
             catch (DbUpdateException /* ex */)
             {
                 //Log the error (uncomment ex variable name and write a log.
@@ -130,7 +120,6 @@ namespace ProyectoWeb.Controllers
                     "Try again, and if the problem persists " +
                     "see your system administrator.");
             }
-
             return View(student);
         }
 
@@ -162,7 +151,10 @@ namespace ProyectoWeb.Controllers
                 return NotFound();
             }
             var studentToUpdate = await _context.Students.FirstOrDefaultAsync(s => s.ID == id);
-            if (await TryUpdateModelAsync<Student>(studentToUpdate, "", s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
+            if (await TryUpdateModelAsync<Student>(
+                studentToUpdate,
+                "",
+                s => s.FirstMidName, s => s.LastName, s => s.EnrollmentDate))
             {
                 try
                 {
@@ -205,7 +197,6 @@ namespace ProyectoWeb.Controllers
 
             return View(student);
         }
-
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
