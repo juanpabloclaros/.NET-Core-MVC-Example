@@ -787,11 +787,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jpclaros\\source\\repos\\CalculadoraAndroid\\CalculadoraAndroid\\CalculadoraAndroid.csproj",
+      "projectUniqueName": "C:\\Users\\jpclaros\\source\\repos\\Github\\.NET-Core-MVC-Example\\CalculadoraAndroid\\CalculadoraAndroid\\CalculadoraAndroid.csproj",
       "projectName": "CalculadoraAndroid",
-      "projectPath": "C:\\Users\\jpclaros\\source\\repos\\CalculadoraAndroid\\CalculadoraAndroid\\CalculadoraAndroid.csproj",
+      "projectPath": "C:\\Users\\jpclaros\\source\\repos\\Github\\.NET-Core-MVC-Example\\CalculadoraAndroid\\CalculadoraAndroid\\CalculadoraAndroid.csproj",
       "packagesPath": "C:\\Users\\jpclaros\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jpclaros\\source\\repos\\CalculadoraAndroid\\CalculadoraAndroid\\obj\\",
+      "outputPath": "C:\\Users\\jpclaros\\source\\repos\\Github\\.NET-Core-MVC-Example\\CalculadoraAndroid\\CalculadoraAndroid\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
